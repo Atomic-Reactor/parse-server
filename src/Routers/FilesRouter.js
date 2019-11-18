@@ -83,16 +83,6 @@ export class FilesRouter {
       return;
     }
 
-    if (!req.params.filename.match(/^[_a-zA-Z0-9][a-zA-Z0-9@\.\ ~_-]*$/)) {
-      next(
-        new Parse.Error(
-          Parse.Error.INVALID_FILE_NAME,
-          'Filename contains invalid characters.'
-        )
-      );
-      return;
-    }
-
     const filename = req.params.filename;
     const contentType = req.get('Content-type');
     const config = req.config;
