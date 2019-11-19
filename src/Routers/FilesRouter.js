@@ -83,6 +83,12 @@ export class FilesRouter {
       return;
     }
 
+    const error = filesController.validateFilename(filename);
+    if (error) {
+      next(error);
+      return;
+    }
+
     const filename = req.params.filename;
     const contentType = req.get('Content-type');
     const config = req.config;

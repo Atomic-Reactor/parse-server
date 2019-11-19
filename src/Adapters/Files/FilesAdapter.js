@@ -58,4 +58,25 @@ export class FilesAdapter {
   getFileLocation(config: Config, filename: string): string {}
 }
 
+/**
+ * Simple filename validation
+ *
+ * @param filename
+ * @returns {null|Parse.Error}
+ */
+export function validateFilename(filename): ?Parse.Error {
+  if (filename.length > 128) {
+    return new Parse.Error(Parse.Error.INVALID_FILE_NAME, 'Filename too long.');
+  }
+
+  const regx = /^[_a-zA-Z0-9][a-zA-Z0-9@. ~_-]*$/;
+  if (!filename.match(regx)) {
+    return new Parse.Error(
+      Parse.Error.INVALID_FILE_NAME,
+      'Filename contains invalid characters.'
+    );
+  }
+  return null;
+}
+
 export default FilesAdapter;
