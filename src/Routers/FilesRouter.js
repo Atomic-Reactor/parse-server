@@ -83,16 +83,16 @@ export class FilesRouter {
       return;
     }
 
+    const filename = req.params.filename;
+    const contentType = req.get('Content-type');
+    const config = req.config;
+    const filesController = config.filesController;
+
     const error = filesController.validateFilename(filename);
     if (error) {
       next(error);
       return;
     }
-
-    const filename = req.params.filename;
-    const contentType = req.get('Content-type');
-    const config = req.config;
-    const filesController = config.filesController;
 
     filesController
       .createFile(config, filename, req.body, contentType)
